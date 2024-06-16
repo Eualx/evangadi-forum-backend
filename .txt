@@ -1,0 +1,9 @@
+data base server
+node server 
+we need a drive to connect this two (mysqul2 )
+expresss for 
+
+our responsiblity folder for user and question and answer
+
+
+ npm i bcrypt password azeberaraki
