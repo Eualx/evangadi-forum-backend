@@ -93,7 +93,7 @@ app.get('/api/data/combineddetail/:questionid', async (req, res) => {
       title, 
       description,
       users.username,
-      questionid,
+      questionid
     FROM 
       questions
       INNER JOIN 
