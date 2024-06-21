@@ -3,15 +3,15 @@ const router=express.Router()
 
 // answer controller
 
-const answers= require("../controller/answerController")
+const {answers,deleteAnswer,updateAnswer}= require("../controller/answerController")
 
 
 
 // authentication middleware
 
 
-// router.post('/all-answer/', answers)
-
-
+router.delete('/deleteanswer/:answerid', deleteAnswer)
+router.post('/update-answer/:answerIdOnEdit',updateAnswer)
 router.post('/all-answer/:questionid', answers)
+
 module.exports=router

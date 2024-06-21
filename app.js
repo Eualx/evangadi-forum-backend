@@ -70,7 +70,7 @@ app.get('/api/data/combined/:questionid', async (req, res) => {
 
     const query = `
     SELECT 
-    answers.answer , users.username FROM answers INNER JOIN users ON answers.userid = users.userid WHERE questionid =? 
+    answers.answer , answers.answerid, users.username FROM answers INNER JOIN users ON answers.userid = users.userid WHERE questionid =? 
     ORDER BY 
    answers.answerid DESC;
    
@@ -85,38 +85,19 @@ app.get('/api/data/combined/:questionid', async (req, res) => {
   }
 });
 
-
-
-
-// app.get('/api/data/combineddelet/:questionid', async (req, res) => {
-//   const { questionid } = req.params;
-
-//     const query = `
-//     SELECT 
-//     answers.answer , answers.answerid FROM answers INNER JOIN users ON answers.userid = users.userid WHERE questionid =? 
-//     ORDER BY 
-//    answers.answerid DESC;
-   
-//   ` ;
-
-
-//   try {
-//     const [results] = await dbConnection.query(query, [questionid]);
-//     res.json(results);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
-
 app.get('/api/data/combineddetail/:questionid', async (req, res) => {
   const { questionid } = req.params;
 
   const query = `
     SELECT  
       title, 
-      description
+      description,
+      users.username,
+      questionid,
     FROM 
       questions
+      INNER JOIN 
+    users ON questions.userid = users.userid
     WHERE 
      questionid = ?
 
@@ -129,11 +110,6 @@ app.get('/api/data/combineddetail/:questionid', async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-
-
-
-
 
 async function start(){
     try {
