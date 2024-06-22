@@ -35,6 +35,21 @@ return res.status(StatusCodes.CREATED).json({msg:"question Inserted"})
 //    }
 //   }
 
+
+async function search(req,res){
+  const { stringQuery } = req.body;
+  try {
+    const [rows] = await dbConnection.query(
+      "SELECT * FROM questions WHERE title LIKE ?",
+      [`%${stringQuery}%`]
+    );
+    res.json(rows);
+  } catch (error) {
+    console.error("Error fetching search results:", error);
+    res.status(500).json({ msg: "Something went wrong" });
+   }
+  }
+
 async function deleteQuestion(req, res) {
    // const userid = req.user.userid;
    console.log("delete question is called ***********");
@@ -95,4 +110,4 @@ async function deleteQuestion(req, res) {
 }
 
 
-  module.exports={questions,deleteQuestion, updateQuestion}
+  module.exports={questions,deleteQuestion, updateQuestion, search}
